@@ -40,21 +40,32 @@ def main():
             print("Wprowadziłeś złą literę, powtórz!")
 
     new_password = generate_password(password_length_wish, is_password_complicated == "t")
-    is_password_good = is_password_is_complicated(new_password)
+    is_password_safe = is_password_is_complicated(new_password)
 
     print("\n" + "=" * 30)
     print(f"TWOJE HASŁO: {new_password}")
-    print(f"OCENA HASŁA: {is_password_good} ")
+    print(f"OCENA HASŁA: {is_password_safe} ")
     print("=" * 30)
+
+    is_safe_password = input("Czy chcesz zapisać hasło do pliku? (t/n): ").lower()
+
+    if is_safe_password == "t":
+        password_name = input("Podaj nazwę dla tego hasła: ")
+
+        with open("my_passwords.txt", "a", encoding = "utf8") as file:
+            file.write(f"Nazwa: {password_name}, Hasło: {new_password}, Siła: {is_password_safe}\n")
+        print("Pomyślnie zapisano hasło!")
+    else:
+        print("Hasło nie zostało zapisane.")
 
 def is_password_is_complicated(password):
     has_special = any(char in string.punctuation for char in password)
     if len(password) < 10:
-        return "Password is weak."
+        return "Weak."
     elif len(password) > 40 and has_special:
-        return "Password is great."
+        return "Strong."
     else:
-        return "Password is mid."
+        return "Mid."
 
 
 if __name__ == "__main__":
