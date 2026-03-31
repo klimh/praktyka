@@ -45,4 +45,5 @@ def main():
     print(f"TWOJE HASŁO: {new_password}")
     print("=" * 30)
 
-main()
+if __name__ == "__main__":
+    main()
