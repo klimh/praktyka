@@ -1,6 +1,18 @@
 import secrets
 import string
 
+
+def generate_password(length: int, is_complicated: bool) -> str:
+    pula = string.ascii_letters + string.digits
+
+    if is_complicated:
+        pula += string.punctuation
+        print("Pula została rozszerzona o znaki specjalne")
+
+    return "".join(secrets.choice(pula) for _ in range(length))
+
+
+
 def main():
     while True:
         try:
@@ -27,13 +39,7 @@ def main():
         else:
             print("Wprowadziłeś złą literę, powtórz!")
 
-    pula = string.ascii_letters + string.digits
-
-    if is_password_complicated == "t":
-        pula += string.punctuation
-        print("Pula została rozszerzona o znaki specjalne")
-
-    new_password = "".join(secrets.choice(pula) for _ in range(password_length_wish))
+    new_password = generate_password(password_length_wish, is_password_complicated == "t")
 
     print("\n" + "=" * 30)
     print(f"TWOJE HASŁO: {new_password}")
