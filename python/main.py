@@ -40,10 +40,22 @@ def main():
             print("Wprowadziłeś złą literę, powtórz!")
 
     new_password = generate_password(password_length_wish, is_password_complicated == "t")
+    is_password_good = is_password_is_complicated(new_password)
 
     print("\n" + "=" * 30)
     print(f"TWOJE HASŁO: {new_password}")
+    print(f"OCENA HASŁA: {is_password_good} ")
     print("=" * 30)
+
+def is_password_is_complicated(password):
+    has_special = any(char in string.punctuation for char in password)
+    if len(password) < 10:
+        return "Password is weak."
+    elif len(password) > 40 and has_special:
+        return "Password is great."
+    else:
+        return "Password is mid."
+
 
 if __name__ == "__main__":
     main()
